@@ -1,12 +1,11 @@
 #include "./window_enumerator.h"
 
+#include <QCoreApplication>
 #include <QDebug>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QCoreApplication>
 #include <QString>
-#include <QDebug>
 
 #include <regex>
 
@@ -153,9 +152,9 @@ void WindowEnumerator::readMediaPlayersJson(const QString &mediaPlayersJsonPath)
 
   mediaPlayerJson.open(QFile::ReadOnly);
 
-  auto mediaPlayers = QJsonDocument().fromJson(mediaPlayersJson.readAll()).object();
+  auto mediaPlayers = QJsonDocument().fromJson(mediaPlayerJson.readAll()).object();
 
-  for(auto &&playerName : mediaPlayers.keys()) {
+  for (auto &&playerName : mediaPlayers.keys()) {
     if (m_mediaPlayers.contains(playerName)) {
       qInfo() << "Media Player already existed," << playerName;
     }
