@@ -74,7 +74,8 @@ SOURCES += \
     ui/settings_dialog/views/rule_import_dialog.cpp \
     src/paths.cpp \
     ui/about.cpp \
-    ui/process_details.cpp
+    ui/process_details.cpp \
+    ui/main_window/components/rss_table_proxy_model.cpp
 
 HEADERS += \
   src/clients/anilist.h \
@@ -117,7 +118,8 @@ HEADERS += \
     ui/settings_dialog/views/rule_import_dialog.h \
     src/paths.h \
     ui/about.h \
-    ui/process_details.h
+    ui/process_details.h \
+    ui/main_window/components/rss_table_proxy_model.h
 
 FORMS += \
   ui/anime_panel.ui \

@@ -16,13 +16,17 @@ Torrents::Torrents(QWidget *parent)
     : QWidget(parent),
       ui(new Ui::Torrents),
       model(new RSSTableModel(this)),
+      proxy_model(new RSSTableProxyModel(this)),
       timer(new QTimer(this)) {
   ui->setupUi(this);
+  ui->torrentTable->horizontalHeader()->setSortIndicator(0, Qt::DescendingOrder);
 
   model->setList(items);
   timer->setInterval(1000);
 
-  ui->torrentTable->setModel(model);
+  proxy_model->setSourceModel(model);
+
+  ui->torrentTable->setModel(proxy_model);
   ui->torrentTable->horizontalHeader()->setStretchLastSection(true);
   ui->torrentTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
   ui->torrentTable->verticalHeader()->setDefaultSectionSize(
@@ -30,9 +34,8 @@ Torrents::Torrents(QWidget *parent)
   ui->torrentTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   ui->torrentTable->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  connect(ui->torrentFilter, &QLineEdit::textChanged, this, [this]() {
-    // proxy_model
-  });
+  connect(ui->torrentFilter, &QLineEdit::textChanged, this,
+          [this](const QString &text) { proxy_model->setFilter(text); });
 
   connect(ui->refreshButton, &QPushButton::clicked, this, [this]() { this->fetchTorrents(); });
 
@@ -40,6 +43,13 @@ Torrents::Torrents(QWidget *parent)
           [this](const QModelIndex index) { this->download(model->item(index)); });
 
   connect(ui->torrentTable, &QTableView::customContextMenuRequested, this, &Torrents::contextMenu);
+
+  connect(ui->clearSortButton, &QPushButton::clicked, this, [this]() {
+    ui->torrentTable->horizontalHeader()->blockSignals(true);
+    ui->torrentTable->horizontalHeader()->setSortIndicator(0, Qt::DescendingOrder);
+    proxy_model->sort(-1);
+    ui->torrentTable->horizontalHeader()->blockSignals(false);
+  });
 
   connect(timer, SIGNAL(timeout()), this, SLOT(timerTick()));
 

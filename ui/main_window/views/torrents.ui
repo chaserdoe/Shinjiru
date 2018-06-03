@@ -34,6 +34,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="clearSortButton">
+       <property name="text">
+        <string>Clear Sort</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLineEdit" name="torrentFilter">
        <property name="placeholderText">
         <string>Filter Torrents...</string>
@@ -46,6 +53,9 @@
     <widget class="QTableView" name="torrentTable">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

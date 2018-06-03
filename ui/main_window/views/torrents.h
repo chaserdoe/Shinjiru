@@ -10,6 +10,7 @@
 
 #include "../../../src/models/rss_item.h"
 #include "../components/rss_table_model.h"
+#include "../components/rss_table_proxy_model.h"
 
 namespace Ui {
 class Torrents;
@@ -38,6 +39,7 @@ class Torrents : public QWidget {
   Ui::Torrents *ui;
   QList<RSSItem *> items;
   RSSTableModel *model;
+  RSSTableProxyModel *proxy_model;
   QTimer *timer;
   int refresh{1};
   QMutex refreshLock;
