@@ -80,7 +80,7 @@
                     <runInTerminal>0</runInTerminal>
                     <windowsExec>${installdir}\Shinjiru\Shinjiru.exe</windowsExec>
                     <windowsExecArgs></windowsExecArgs>
-                    <windowsIcon>C:/shinjiru-dev/Shinjiru/res/icon.ico</windowsIcon>
+                    <windowsIcon>${installdir}\Shinjiru\Shinjiru.ico</windowsIcon>
                     <windowsPath>${installdir}</windowsPath>
                 </startMenuShortcut>
             </startMenuShortcutList>
