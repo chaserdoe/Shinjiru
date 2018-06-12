@@ -66,8 +66,16 @@ void AniList::grant() {
 void AniList::statusChanged(QAbstractOAuth::Status status) {
   if (status == QAbstractOAuth::Status::Granted) {
     QSettings settings;
-    settings.setValue("accessToken", oauth2.token());
 
-    emit authenticated();
+    auto token = oauth2.token();
+
+    if (token.size() != 0) {
+      qDebug() << "Authenticated successfully!";
+      settings.setValue("accessToken", oauth2.token());
+
+      emit authenticated();
+    } else {
+      qWarning() << "Failed to retrieve token";
+    }
   }
 }
