@@ -153,7 +153,7 @@ linux {
     bin.path = $${PREFIX}/bin
     bin.files = Shinjiru
 
-    icon.path = $${PREFIX}/share/icons/hicolor/256x256/apps
+    icon.path = $${PREFIX}/share/icons/hicolor/scalable/apps
     icon.extra = $(INSTALL_FILE) res/icon.svg $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
     icon.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
 
