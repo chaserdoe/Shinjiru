@@ -4,7 +4,7 @@ TARGET = Shinjiru
 TEMPLATE = app
 
 VERSION_MAJOR = 3
-VERSION_MINOR = 1
+VERSION_MINOR = 2
 VERSION_PATCH = 0
 
 DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR"\
@@ -66,16 +66,16 @@ SOURCES += \
   ui/settings_dialog/views/application.cpp \
   ui/settings_dialog/views/recognition.cpp \
   ui/settings_dialog/views/torrent_settings.cpp \
-    ui/tray_icon.cpp \
-    ui/settings_dialog/components/committable_widget.cpp \
-    ui/main_window/components/now_playing_list_model.cpp \
-    ui/settings_dialog/components/torrent_rule_model.cpp \
-    ui/settings_dialog/components/torrent_rule.cpp \
-    ui/settings_dialog/views/rule_import_dialog.cpp \
-    src/paths.cpp \
-    ui/about.cpp \
-    ui/process_details.cpp \
-    ui/main_window/components/rss_table_proxy_model.cpp
+  ui/tray_icon.cpp \
+  ui/settings_dialog/components/committable_widget.cpp \
+  ui/main_window/components/now_playing_list_model.cpp \
+  ui/settings_dialog/components/torrent_rule_model.cpp \
+  ui/settings_dialog/components/torrent_rule.cpp \
+  ui/settings_dialog/views/rule_import_dialog.cpp \
+  src/paths.cpp \
+  ui/about.cpp \
+  ui/process_details.cpp \
+  ui/main_window/components/rss_table_proxy_model.cpp
 
 HEADERS += \
   src/clients/anilist.h \
@@ -110,16 +110,16 @@ HEADERS += \
   ui/settings_dialog/views/application.h \
   ui/settings_dialog/views/recognition.h \
   ui/settings_dialog/views/torrent_settings.h \
-    ui/tray_icon.h \
-    ui/settings_dialog/components/committable_widget.h \
-    ui/main_window/components/now_playing_list_model.h \
-    ui/settings_dialog/components/torrent_rule_model.h \
-    ui/settings_dialog/components/torrent_rule.h \
-    ui/settings_dialog/views/rule_import_dialog.h \
-    src/paths.h \
-    ui/about.h \
-    ui/process_details.h \
-    ui/main_window/components/rss_table_proxy_model.h
+  ui/tray_icon.h \
+  ui/settings_dialog/components/committable_widget.h \
+  ui/main_window/components/now_playing_list_model.h \
+  ui/settings_dialog/components/torrent_rule_model.h \
+  ui/settings_dialog/components/torrent_rule.h \
+  ui/settings_dialog/views/rule_import_dialog.h \
+  src/paths.h \
+  ui/about.h \
+  ui/process_details.h \
+  ui/main_window/components/rss_table_proxy_model.h
 
 FORMS += \
   ui/anime_panel.ui \
@@ -132,9 +132,9 @@ FORMS += \
   ui/settings_dialog/views/application.ui \
   ui/settings_dialog/views/recognition.ui \
   ui/settings_dialog/views/torrent_settings.ui \
-    ui/settings_dialog/views/rule_import_dialog.ui \
-    ui/about.ui \
-    ui/process_details.ui
+  ui/settings_dialog/views/rule_import_dialog.ui \
+  ui/about.ui \
+  ui/process_details.ui
 
 INCLUDEPATH += \
   lib
@@ -146,25 +146,25 @@ TRANSLATIONS = \
   lang/shinjiru_en.ts
 
 linux {
-    isEmpty(PREFIX) {
-      PREFIX = $$PWD
-    }
+  isEmpty(PREFIX) {
+    PREFIX = $$PWD
+  }
 
-    bin.path = $${PREFIX}/bin
-    bin.files = Shinjiru
+  bin.path = $${PREFIX}/bin
+  bin.files = Shinjiru
 
-    icon.path = $${PREFIX}/share/icons/hicolor/256x256/apps
-    icon.extra = $(INSTALL_FILE) res/icon.svg $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
-    icon.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
+  icon.path = $${PREFIX}/share/icons/hicolor/256x256/apps
+  icon.extra = $(INSTALL_FILE) res/icon.svg $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
+  icon.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
 
-    app.path = $${PREFIX}/share/applications/
-    app.extra = cp -f $${PWD}/Shinjiru.desktop.in $${PWD}/Shinjiru.desktop; \
-                echo \"Exec=$${PREFIX}/bin/Shinjiru\" >> $${PWD}/Shinjiru.desktop; \
-                ${INSTALL_FILE} $${PWD}/Shinjiru.desktop $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
-    app.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
+  app.path = $${PREFIX}/share/applications/
+  app.extra = cp -f $${PWD}/Shinjiru.desktop.in $${PWD}/Shinjiru.desktop; \
+              echo \"Exec=$${PREFIX}/bin/Shinjiru\" >> $${PWD}/Shinjiru.desktop; \
+              ${INSTALL_FILE} $${PWD}/Shinjiru.desktop $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
+  app.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
 
-    license.path = $${PREFIX}/share/licenses/Shinjiru
-    license.files = LICENSE
+  license.path = $${PREFIX}/share/licenses/Shinjiru
+  license.files = LICENSE
 
-    INSTALLS += bin icon app license
+  INSTALLS += bin icon app license
 }
