@@ -89,6 +89,10 @@ void AnimeTable::contextMenuEvent(QContextMenuEvent *event) {
   int media_id = proxy_model->data(index, Qt::DisplayRole).toInt();
   selectedMedia = mediaList.getMediaById(media_id);
 
+  if (selectedMedia == nullptr) {
+    return;
+  }
+
   auto contextMenu = new QMenu;
 
   auto animePanel = new QAction(tr("Open Anime Panel"), contextMenu);
