@@ -77,9 +77,10 @@ void Torrents::contextMenu() {
   auto selectionModel = ui->torrentTable->selectionModel();
   auto indexes = selectionModel->selectedIndexes();
   auto row = indexes[0].row();
-  auto index = model->index(row, RSSRoles::Title);
+  auto index = proxy_model->index(row, RSSRoles::Title);
+  auto sourceIndex = proxy_model->mapToSource(index);
 
-  auto rssItem = model->item(index);
+  auto rssItem = model->item(sourceIndex);
 
   auto contextMenu = new QMenu;
 
