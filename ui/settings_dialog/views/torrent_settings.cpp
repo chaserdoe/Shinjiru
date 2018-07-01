@@ -95,19 +95,23 @@ TorrentSettings::TorrentSettings(QWidget *parent)
 
     connect(dialog, &RuleImportDialog::finished, this, [this, dialog](int result) {
       if (result == QDialog::Accepted) {
+        QSet<int> list;
+        QString key;
         if (dialog->useSeason) {
-          // TODO
+          key = dialog->season;
+          list = MediaList::instance().getMediaBySeason(dialog->season);
         } else {
-          QSet<int> list = MediaList::instance().getMediaList(dialog->list);
+          key = dialog->list;
+          list = MediaList::instance().getMediaList(dialog->list);
+        }
 
-          for (auto id : list) {
-            TorrentRule *rule = new TorrentRule;
-            rule->id = id;
-            rule->subGroup = ui->defaultSubgroup->text();
-            rule->quality = ui->defaultQuality->currentText();
+        for (auto id : list) {
+          TorrentRule *rule = new TorrentRule;
+          rule->id = id;
+          rule->subGroup = ui->defaultSubgroup->text();
+          rule->quality = ui->defaultQuality->currentText();
 
-            this->model->addRule(dialog->list, rule);
-          }
+          this->model->addRule(key, rule);
         }
       }
 

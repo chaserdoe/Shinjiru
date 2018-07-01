@@ -38,22 +38,26 @@ RuleImportDialog::RuleImportDialog(QWidget *parent)
   ui->lists->addItems(lists);
 
   auto currentDate = QDate::currentDate();
-  currentDate.addYears(-1);
+  auto currentYear = currentDate.year() - 2;
 
   for (int i = 0; i < 3; ++i) {
-    currentDate.addYears(1);
-    auto year = QString::number(currentDate.year());
+    currentYear += 1;
+    auto year = QString::number(currentYear);
     ui->seasons->addItems({"Spring " + year, "Summer " + year, "Fall " + year, "Winter " + year});
   }
 
   connect(ui->groupBox, &QGroupBox::clicked, this, [this](bool checked) {
     ui->groupBox->setChecked(checked);
     ui->groupBox_2->setChecked(!checked);
+
+    this->useSeason = ui->groupBox_2->isChecked();
   });
 
   connect(ui->groupBox_2, &QGroupBox::clicked, this, [this](bool checked) {
     ui->groupBox->setChecked(!checked);
     ui->groupBox_2->setChecked(checked);
+
+    this->useSeason = ui->groupBox_2->isChecked();
   });
 
   connect(ui->lists, &QComboBox::currentTextChanged, this, [this](const QString &text) {

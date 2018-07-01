@@ -20,6 +20,7 @@ class MediaList : public Singleton<MediaList> {
 
   Media *getMediaById(const int id) const;
   QSet<Media *> getMediaByTitle(const QString &title);
+  QSet<int> getMediaBySeason(const QString &season);
   QSet<int> getMediaList(const QString &key) const;
   QList<QString> getMediaLists() const;
   void addMediaToList(const QString &list, Media *media);

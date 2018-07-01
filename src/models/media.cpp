@@ -152,6 +152,14 @@ void Media::setSequel(int sequel) {
   m_sequel = sequel;
 }
 
+QString Media::season() const {
+  return m_season;
+}
+
+void Media::setSeason(const QString &season) {
+  m_season = season;
+}
+
 QString Media::listStatus() const {
   return m_listStatus;
 }
@@ -318,6 +326,22 @@ void Media::loadInnerMedia(const QJsonObject &innerMedia) {
     tags.append(tag.toObject().value("name").toString());
   }
 
+  QString season;
+  auto startDate = innerMedia.value("startDate").toObject();
+  auto seasonYear = startDate.value("year").toInt();
+  auto seasonSeason = innerMedia.value("season").toString().toLower();
+
+  if (season == "winter") {
+    auto month = startDate.value("month").toInt();
+
+    if (month > 10) {
+      seasonYear += 1;
+    }
+  }
+
+  season = seasonSeason + " " + QString::number(seasonYear);
+  this->setSeason(season);
+
   this->setTags(tags);
 
   this->setHasNextAiringEpisode(!innerMedia.value("nextAiringEpisode").isNull());
@@ -347,14 +371,14 @@ void Media::loadInnerMedia(const QJsonObject &innerMedia) {
   edgesArray = studiosObject.value("edges").toArray();
 
   for (auto &&edge : edgesArray) {
-      auto edgeObject = edge.toObject();
+    auto edgeObject = edge.toObject();
 
-      if (!edgeObject.value("isMain").toBool()) {
-          continue;
-      }
+    if (!edgeObject.value("isMain").toBool()) {
+      continue;
+    }
 
-      auto studio = edgeObject.value("node").toObject();
-      studios.append(studio.value("name").toString());
+    auto studio = edgeObject.value("node").toObject();
+    studios.append(studio.value("name").toString());
   }
 
   this->setStudios(studios);

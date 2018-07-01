@@ -144,6 +144,20 @@ QSet<Media *> MediaList::getMediaByTitle(const QString &title) {
   return results;
 }
 
+QSet<int> MediaList::getMediaBySeason(const QString &season) {
+  QSet<int> results;
+
+  auto lowerSeason = season.toLower();
+
+  for (auto &&media : m_mediaHash) {
+    if (media->season() == lowerSeason) {
+      results.insert(media->id());
+    }
+  }
+
+  return results;
+}
+
 QSet<int> MediaList::getMediaList(const QString &key) const {
   return m_lists[key];
 }

@@ -36,6 +36,11 @@ query ($userId: Int) {
           coverImage {
             large
           }
+          season
+          startDate {
+            year
+            month
+          }
           synonyms
           genres
           tags {
