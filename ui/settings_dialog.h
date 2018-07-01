@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+#include "../../../src/models/rss_item.h"
 #include "settings_dialog/components/committable_widget.h"
 #include "settings_dialog/views/application.h"
 #include "settings_dialog/views/recognition.h"
@@ -18,6 +19,8 @@ class SettingsDialog : public QDialog {
  public:
   explicit SettingsDialog(QWidget *parent = 0);
   ~SettingsDialog();
+
+  void addTorrentItem(RSSItem *item);
 
  private:
   Ui::SettingsDialog *ui;

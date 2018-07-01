@@ -1,6 +1,7 @@
 #ifndef UI_SETTINGS_DIALOG_VIEWS_TORRENTS_H__
 #define UI_SETTINGS_DIALOG_VIEWS_TORRENTS_H__
 
+#include "../../../src/models/rss_item.h"
 #include "../components/committable_widget.h"
 #include "../components/torrent_rule.h"
 #include "../components/torrent_rule_model.h"
@@ -20,6 +21,7 @@ class TorrentSettings : public CommittableWidget {
 
   void resetToDefault() override;
   void commit() override;
+  void addItem(RSSItem *item);
 
  private:
   Ui::TorrentSettings *ui;

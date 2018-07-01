@@ -218,4 +218,13 @@ void TorrentSettings::resetToDefault() {
 void TorrentSettings::commit() {
   model->save();
 }
+
+void TorrentSettings::addItem(RSSItem *item) {
+  TorrentRule *rule = new TorrentRule;
+  rule->id = item->mediaId;
+  rule->subGroup = item->subGroup;
+  rule->quality = item->quality;
+
+  this->model->addRule("", rule);
+}
 }  // namespace Views

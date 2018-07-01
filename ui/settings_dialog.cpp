@@ -62,3 +62,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 SettingsDialog::~SettingsDialog() {
   delete ui;
 }
+
+void SettingsDialog::addTorrentItem(RSSItem *item) {
+  ui->settingsPanel->setCurrentWidget(viewTorrents);
+  viewTorrents->addItem(item);
+}

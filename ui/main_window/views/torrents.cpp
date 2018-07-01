@@ -9,6 +9,7 @@
 #include "../../../src/clients/nekomimi.h"
 #include "../../../src/paths.h"
 #include "../../../src/utilities/file_downloader.h"
+#include "../../settings_dialog.h"
 
 namespace Views {
 
@@ -85,10 +86,24 @@ void Torrents::contextMenu() {
   auto contextMenu = new QMenu;
 
   auto downloadItem = new QAction(tr("Download"), contextMenu);
+  auto createRuleItem = new QAction(tr("Create Rule"), contextMenu);
 
   contextMenu->addAction(downloadItem);
+  contextMenu->addAction(createRuleItem);
 
   connect(downloadItem, &QAction::triggered, this, [this, rssItem]() { download(rssItem); });
+  connect(createRuleItem, &QAction::triggered, this, [this, rssItem]() {
+    if (rssItem->mediaId > 0) {
+      SettingsDialog *dialog = new SettingsDialog;
+
+      connect(dialog, &SettingsDialog::finished, this, [dialog]() { dialog->deleteLater(); });
+
+      dialog->show();
+      dialog->addTorrentItem(rssItem);
+    } else {
+      qWarning() << "Unknown media for " << rssItem->title;
+    }
+  });
 
   contextMenu->exec(point);
   contextMenu->deleteLater();
