@@ -41,5 +41,16 @@
     ],
     "method": "TITLE",
     "titleRegex": "(.+) - PotPlayer"
+  },
+  "Firefox": {
+    "exeNames": [
+      "firefox.exe",
+      "firefox"
+    ],
+    "method": "TITLE",
+    "titleRegexes": [
+      "(.+) - AnimeDao - Mozilla Firefox",
+      "(.+) - Watch on Crunchyroll - Mozilla Firefox"
+    ]
   }
 }

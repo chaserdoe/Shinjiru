@@ -100,18 +100,33 @@ bool WindowEnumerator::detectMedia(const Process &process) {
   auto method = playerData.value("method").toString();
 
   if (method == "TITLE") {
-    auto titleRegex = playerData.value("titleRegex").toString();
-    auto regex = std::regex(titleRegex.toStdString());
+    QList<std::regex> regexes;
+
+    if (playerData.contains("titleRegex")) {
+      auto titleRegex = playerData.value("titleRegex").toString();
+      regexes.append(std::regex(titleRegex.toStdString()));
+    }
+
+    if (playerData.contains("titleRegexes")) {
+      auto titleRegexes = playerData.value("titleRegexes").toArray();
+
+      for (auto &&titleRegex : titleRegexes) {
+        regexes.append(std::regex(titleRegex.toString().toStdString()));
+      }
+    }
 
     for (auto &&window : process.GetWindows()) {
       auto title = window.GetTitle();
-      std::smatch base_match;
-      if (std::regex_match(title, base_match, regex)) {
-        if (base_match.size() == 2) {
-          auto base_sub_match = base_match[1];
-          auto title = base_sub_match.str();
-          processTitle(title);
-          return true;
+
+      for (auto &&regex : regexes) {
+        std::smatch base_match;
+        if (std::regex_match(title, base_match, regex)) {
+          if (base_match.size() == 2) {
+            auto base_sub_match = base_match[1];
+            auto title = base_sub_match.str();
+            processTitle(title);
+            return true;
+          }
         }
       }
     }
