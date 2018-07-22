@@ -13,7 +13,7 @@ Discord::Discord() {
   DiscordEventHandlers handlers;
   memset(&handlers, 0, sizeof(handlers));
 
-  handlers.ready = []() { qDebug() << "Discord is ready!"; };
+  handlers.ready = [](const DiscordUser *) { qDebug() << "Discord is ready!"; };
 
   handlers.errored = [](int errc, const char *msg) {
     qWarning() << "Error " << errc << ": " << msg;

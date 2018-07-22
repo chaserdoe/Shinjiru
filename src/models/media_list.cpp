@@ -127,6 +127,10 @@ Media *MediaList::getMediaById(const int id) const {
 QSet<Media *> MediaList::getMediaByTitle(const QString &title) {
   QSet<Media *> results;
 
+  if (title.size() == 0) {
+    return results;
+  }
+
   for (auto &&media : m_mediaHash) {
     if (media->title().compare(title, Qt::CaseInsensitive) == 0 ||
         media->synonyms().contains(title, Qt::CaseInsensitive)) {

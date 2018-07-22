@@ -99,14 +99,7 @@ int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   a.setStyleSheet(style);
 
-#ifdef QT_NO_DEBUG
-  QFile logFile(Paths::logFileName());
-  if (logFile.exists()) logFile.remove();
-
-  qInstallMessageHandler(File);
-#else
   qInstallMessageHandler(Cerr);
-#endif
 
 #ifndef QT_DEBUG
 #ifdef Q_OS_WIN

@@ -77,6 +77,6 @@ QString Paths::logFileName() {
 #if defined Q_OS_LINUX || defined Q_OS_MAC
   return QDir::homePath() + "/.Shinjiru.log";
 #else
-  return qApp->applicationDirPath() + "/Shinjiru.log";
+  return configFile("Shinjiru.log");
 #endif
 }
