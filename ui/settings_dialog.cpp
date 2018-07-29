@@ -1,8 +1,11 @@
 #include "settings_dialog.h"
 #include "ui_settings_dialog.h"
 
+#include <QApplication>
+#include <QProcess>
 #include <QSettings>
 
+#include "../../src/clients/anilist.h"
 #include "../../src/settings.h"
 
 SettingsDialog::SettingsDialog(QWidget *parent)
@@ -45,6 +48,14 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     }
 
     this->accept();
+  });
+
+  connect(ui->buttonDisconnect, &QPushButton::clicked, this, [this]() {
+    AniList::instance().forgetToken();
+
+    QProcess::startDetached(QApplication::instance()->arguments()[0],
+                            QApplication::instance()->arguments());
+    QApplication::instance()->quit();
   });
 
   connect(ui->buttonDefault, &QPushButton::clicked, this, [this]() {

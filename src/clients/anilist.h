@@ -20,6 +20,7 @@ class AniList : public Singleton<AniList> {
   QNetworkReply *graphql(const QString &query, const QJsonObject &variables);
 
   int userId();
+  void forgetToken();
 
   void requestReload();
 

@@ -40,6 +40,11 @@ int AniList::userId() {
   return object["sub"].toString().toInt();
 }
 
+void AniList::forgetToken() {
+  QSettings settings;
+  settings.setValue("accessToken", "");
+}
+
 void AniList::requestReload() {
   emit reload();
 }
