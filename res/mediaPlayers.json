@@ -27,7 +27,8 @@
   },
   "VLC": {
     "exeNames": [
-      "vlc.exe"
+      "vlc.exe",
+      "vlc"
     ],
     "method": "TITLE",
     "titleRegex": "(.*) - VLC media player.*"
