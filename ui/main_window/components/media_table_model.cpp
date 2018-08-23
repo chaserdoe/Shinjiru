@@ -44,7 +44,6 @@ bool MediaTableModel::defaultHidden(int section) const {
   switch (section) {
     case ListRoles::ID:
       return true;
-      break;
   }
 
   return false;
@@ -88,34 +87,25 @@ QVariant MediaTableModel::data(const QModelIndex &index, int role) const {
   switch (index.column()) {
     case ListRoles::ID:
       return QString::number(media->id());
-      break;
     case ListRoles::Title:
       return media->title();
-      break;
     case ListRoles::Progress:
       return QString::number(media->progress());
-      break;
     case ListRoles::Episodes: {
       auto episodes = media->episodes();
       return episodes == 0 ? "-" : QString::number(episodes);
-      break;
     }
     case ListRoles::Score: {
       auto scoreFormat = User::instance().scoreFormat();
       auto score = media->score();
 
-      if (scoreFormat == "POINT_100") {
-        return QString::number(score);
-      } else if (scoreFormat == "POINT_10") {
-        return QString::number(score / 10);
-      } else if (scoreFormat == "POINT_5") {
-        return QString::number(score / 20) + " ★";
+      if (scoreFormat == "POINT_5") {
+        return QString::number(score) + " ★";
       } else if (scoreFormat == "POINT_3") {
-        return "0";
-      } else if (scoreFormat == "POINT_10_DECIMAL") {
-        return QString::number(score / 10.0);
+        return score == 3 ? ":)" : score == 2 ? ":|" : score == 1 ? ":(" : "";
+      } else {
+        return QString::number(score);
       }
-      break;
     }
     case ListRoles::Status: {
       auto status = media->listStatus();

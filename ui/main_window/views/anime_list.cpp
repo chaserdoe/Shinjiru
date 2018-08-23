@@ -14,9 +14,12 @@ AnimeList::AnimeList(QWidget *parent)
   mediaList = &MediaList::instance();
 
   connect(refreshTimer, &QTimer::timeout, []() { AniList::instance().requestReload(); });
-
+#ifndef WIN32
   using namespace std::chrono_literals;
   refreshTimer->setInterval(15min);
+#else
+  refreshTimer->setInterval(15 * 60 * 1000);
+#endif
   refreshTimer->start();
 
   connect(ui->lineEdit, &QLineEdit::textChanged, this, [this](auto text) {
@@ -89,7 +92,7 @@ void AnimeList::keyPressEvent(QKeyEvent *event) {
   if (event->key() == Qt::Key_Escape) {
     QLineEdit *focus = qobject_cast<QLineEdit *>(focusWidget());
 
-    if (focus = ui->lineEdit) {
+    if (focus == ui->lineEdit) {
       focus->clear();
     }
   }

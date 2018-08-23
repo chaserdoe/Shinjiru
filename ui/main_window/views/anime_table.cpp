@@ -73,6 +73,9 @@ void AnimeTable::refresh() {
   for (int i = 0; i < model->columnCount(); ++i) {
     QApplication::processEvents();
     this->resizeColumnToContents(i);
+    if (this->columnWidth(i) > 500) {
+      this->setColumnWidth(i, 500);
+    }
   }
 }
 
@@ -82,6 +85,11 @@ void AnimeTable::setFilter(const QString &text) {
 
 void AnimeTable::contextMenuEvent(QContextMenuEvent *event) {
   auto indexes = this->selectedIndexes();
+
+  if (indexes.length() == 0) {
+    return;
+  }
+
   auto row = indexes[0].row();
   auto index = proxy_model->index(row, ListRoles::ID);
 
