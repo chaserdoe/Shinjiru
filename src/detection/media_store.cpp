@@ -65,7 +65,7 @@ void MediaStore::setMediaPlaying(Media *media, int episode) {
     }
   }
 
-  if (m_mediaPlaying != media) {
+  if (m_mediaPlaying != media || m_episode != episode) {
     m_mediaPlaying = media;
     m_episode = episode;
     emit mediaPlayingChanged();
