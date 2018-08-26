@@ -86,7 +86,7 @@
             </startMenuShortcutList>
         </component>
     </componentList>
-    <enableRollback>1</enableRollback>
+    <enableRollback>0</enableRollback>
     <enableTimestamp>1</enableTimestamp>
     <saveRelativePaths>1</saveRelativePaths>
     <vendor>Kazakuri</vendor>
