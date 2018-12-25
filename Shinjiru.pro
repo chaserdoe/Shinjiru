@@ -5,7 +5,7 @@ TEMPLATE = app
 
 VERSION_MAJOR = 3
 VERSION_MINOR = 3
-VERSION_PATCH = 1
+VERSION_PATCH = 3
 
 DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR"\
        "VERSION_MINOR=$$VERSION_MINOR"\
@@ -31,6 +31,21 @@ win32-msvc* {
   QMAKE_CXXFLAGS_WARN_ON += -W4 -w44640
   QMAKE_CXXFLAGS_RELEASE += -O2 -MD
   QMAKE_LFLAGS_RELEASE = /INCREMENTAL:NO /DEBUG /MAP /OPT:REF
+}
+
+macx {
+  QMAKE_CXXFLAGS += -x objective-c++
+
+  QMAKE_LFLAGS += -F /System/Library/Frameworks/ApplicationServices.framework/
+  LIBS += -framework ApplicationServices
+
+  QMAKE_LFLAGS += -F /System/Library/Frameworks/AppKit.framework/
+  LIBS += -framework AppKit
+
+  QMAKE_INFO_PLIST = Info.plist
+  ICON = res/icon.icns
+
+  CONFIG -= force_debug_info
 }
 
 SOURCES += \

@@ -51,7 +51,9 @@
     "method": "TITLE",
     "titleRegexes": [
       "(.+) - AnimeDao - Mozilla Firefox",
-      "(.+) - Watch on Crunchyroll - Mozilla Firefox"
+      "(.+) - AnimeDao",
+      "(.+) - Watch on Crunchyroll - Mozilla Firefox",
+      "(.+) - Watch on Crunchyroll"
     ]
   }
 }
