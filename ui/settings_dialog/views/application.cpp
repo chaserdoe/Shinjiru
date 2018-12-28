@@ -1,11 +1,29 @@
 #include "application.h"
 #include "ui_application.h"
 
+#include <QDir>
+#include <QDirIterator>
+
+#include "../../../src/paths.h"
+
 #include "../../../src/settings.h"
 
 namespace Views {
 Application::Application(QWidget *parent) : CommittableWidget(parent), ui(new Ui::Application) {
   ui->setupUi(this);
+
+  QDir theme_dir(Paths::configDir("themes"));
+
+  QDirIterator it(theme_dir);
+
+  while (it.hasNext()) {
+    it.next();
+    auto file = it.fileName();
+
+    if (file != "." && file != "..") {
+      ui->theme->addItem(file.left(file.lastIndexOf(".")));
+    }
+  }
 
   Settings s;
 
@@ -15,6 +33,7 @@ Application::Application(QWidget *parent) : CommittableWidget(parent), ui(new Ui
   auto startMinimized = s.get(Setting::StartMinimized).toBool();
   auto minimizeToTray = s.get(Setting::MinimizeToTray).toBool();
   auto closeToTray = s.get(Setting::CloseToTray).toBool();
+  auto theme = s.get(Setting::Theme).toString();
 
   ui->language->setCurrentText(language);
   ui->startOnBoot->setChecked(startOnBoot);
@@ -22,9 +41,15 @@ Application::Application(QWidget *parent) : CommittableWidget(parent), ui(new Ui
   ui->startMinimized->setChecked(startMinimized);
   ui->minimizeToTray->setChecked(minimizeToTray);
   ui->closeToTray->setChecked(closeToTray);
+  ui->theme->setCurrentText(theme);
 
   connect(ui->language, &QComboBox::currentTextChanged, this, [this](const QString &language) {
     this->changed_settings[Setting::Language] = language;
+    this->restart_required = true;
+  });
+
+  connect(ui->theme, &QComboBox::currentTextChanged, this, [this](const QString &theme) {
+    this->changed_settings[Setting::Theme] = theme;
     this->restart_required = true;
   });
 
@@ -62,6 +87,7 @@ void Application::resetToDefault() {
   auto startMinimized = s.getDefault(Setting::StartMinimized).toBool();
   auto minimizeToTray = s.getDefault(Setting::MinimizeToTray).toBool();
   auto closeToTray = s.getDefault(Setting::CloseToTray).toBool();
+  auto theme = s.getDefault(Setting::Theme).toString();
 
   ui->language->setCurrentText(language);
   ui->startOnBoot->setChecked(startOnBoot);
@@ -69,6 +95,7 @@ void Application::resetToDefault() {
   ui->startMinimized->setChecked(startMinimized);
   ui->minimizeToTray->setChecked(minimizeToTray);
   ui->closeToTray->setChecked(closeToTray);
+  ui->theme->setCurrentText(theme);
 }
 
 #ifdef Q_OS_WIN

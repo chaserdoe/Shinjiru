@@ -21,6 +21,7 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QDirIterator>
 #include <QStandardPaths>
 #include <QtDebug>
 
@@ -31,11 +32,22 @@ QString Paths::configDir(const QString &dirName) {
 
   dir = QStandardPaths::locate(QStandardPaths::AppConfigLocation, dirName,
                                QStandardPaths::LocateDirectory);
+
   if (dir.isEmpty()) {
     QString tmp = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
     dir = tmp + "/" + dirName;
     QDir(dir).mkpath(dir);
-    qDebug() << "Created new config direcrory:" << dir;
+    qDebug() << "Created new config directory:" << dir;
+
+    if (dirName == "themes") {
+      QDirIterator it(QDir(dataDir("theme_data")));
+
+      while (it.hasNext()) {
+        QFile f(it.next());
+        f.copy(dir + "/" + it.fileName());
+        qDebug() << "Copying to" << (dir + "/" + it.fileName());
+      }
+    }
   }
 
   return dir;

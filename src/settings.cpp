@@ -47,6 +47,8 @@ QVariant Settings::getDefault(const Setting &s) {
       return QMap<QString, QVariant>();
     case Setting::UpdateOnClose:
       return false;
+    case Setting::Theme:
+      return "Default";
   }
 
   return QVariant();

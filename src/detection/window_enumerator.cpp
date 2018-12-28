@@ -26,7 +26,7 @@ WindowEnumerator::WindowEnumerator() : Singleton() {
     auto playerData = m_mediaPlayers.value(playerName).toObject();
     auto exeNames = playerData.value("exeNames").toArray();
 
-    for (auto &&exeName : exeNames) {
+    for (QJsonValueRef exeName : exeNames) {
       m_exeNames.insert(exeName.toString().toLower(), playerName);
     }
   }
@@ -110,7 +110,7 @@ bool WindowEnumerator::detectMedia(const Process &process) {
     if (playerData.contains("titleRegexes")) {
       auto titleRegexes = playerData.value("titleRegexes").toArray();
 
-      for (auto &&titleRegex : titleRegexes) {
+      for (QJsonValueRef titleRegex : titleRegexes) {
         regexes.append(std::regex(titleRegex.toString().toStdString()));
       }
     }

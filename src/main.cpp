@@ -87,17 +87,8 @@ int main(int argc, char *argv[]) {
   QCoreApplication::setOrganizationDomain("shinjiru.me");
   QCoreApplication::setApplicationName("Shinjiru");
 
-  QFile styleSheet(":/res/style.qss");
-
-  if (!styleSheet.open(QFile::ReadOnly)) {
-    // TODO
-    return EXIT_FAILURE;
-  }
-
-  QString style = styleSheet.readAll();
-
   QApplication a(argc, argv);
-  a.setStyleSheet(style);
+  Settings s;
 
 #ifdef QT_NO_DEBUG
   QFile logFile(Paths::logFileName());
@@ -106,6 +97,24 @@ int main(int argc, char *argv[]) {
 #else
   qInstallMessageHandler(Cerr);
 #endif
+
+  QString style_dir = Paths::configDir("themes");
+  auto style = s.get(Setting::Theme).toString();
+
+  if (!QFile(style_dir + "/" + style + ".qss").exists()) {
+    style = s.getDefault(Setting::Theme).toString();
+    s.set(Setting::Theme, style);
+  }
+
+  QFile styleSheet(style_dir + "/" + style + ".qss");
+
+  if (styleSheet.open(QFile::ReadOnly)) {
+    QString style_data = styleSheet.readAll();
+    a.setStyleSheet(style_data);
+    qDebug() << "Loaded style:" << styleSheet.fileName();
+  } else {
+    qDebug() << "Unable to open file:" << styleSheet.fileName();
+  }
 
 #ifndef QT_DEBUG
 #ifdef Q_OS_WIN
@@ -121,8 +130,6 @@ int main(int argc, char *argv[]) {
     window_icon.loadFromData(icon_data);
     qApp->setWindowIcon(QIcon(window_icon));
   }
-
-  Settings s;
 
   // TODO: language
   QTranslator qtTranslator;
