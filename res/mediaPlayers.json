@@ -50,10 +50,31 @@
     ],
     "method": "TITLE",
     "titleRegexes": [
-      "(.+) - AnimeDao - Mozilla Firefox",
-      "(.+) - AnimeDao",
-      "(.+) - Watch on Crunchyroll - Mozilla Firefox",
-      "(.+) - Watch on Crunchyroll"
+      "(.+) - AnimeDao( - Mozilla Firefox)?",
+      "(.+) - Watch on Crunchyroll( - Mozilla Firefox)?",
+      "(.+) - Watch .+ online in high quality( - Mozilla Firefox)?",
+      "Watch (.+) English Subbed ?at Gogoanime( - Mozilla Firefox)?",
+      "Watch (.+) at Gogoanime( - Mozilla Firefox)?",
+      "Watch (.+) Hentai Video in (.+) - hanime.tv( - Mozilla Firefox)?",
+      "(.+) (English Subbed|RAW) - Hentaipulse( - Mozilla Firefox)?",
+      "▶ (.+)( - Mozilla Firefox)?"
+    ]
+  },
+  "Chrome": {
+    "exeNames": [
+      "chrome.exe",
+      "chrome"
+    ],
+    "method": "TITLE",
+    "titleRegexes": [
+      "(.+) - AnimeDao( - Google Chrome)?",
+      "(.+) - Watch on Crunchyroll( - Google Chrome)?",
+      "(.+) - Watch .+ online in high quality( - Google Chrome)?",
+      "Watch (.+) English Subbed ?at Gogoanime( - Google Chrome)?",
+      "Watch (.+) at Gogoanime( - Google Chrome)?",
+      "Watch (.+) Hentai Video in (.+) - hanime.tv( - Google Chrome)?",
+      "(.+) (English Subbed|RAW) - Hentaipulse( - Google Chrome)?",
+      "▶ (.+)( - Google Chrome)?"
     ]
   }
 }
