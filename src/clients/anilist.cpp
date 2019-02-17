@@ -7,8 +7,14 @@ const QUrl graphqlUrl("https://graphql.anilist.co");
 
 AniList::AniList() {
   oauth2.setAuthorizationUrl(QUrl("https://anilist.co/api/v2/oauth/authorize"));
-  oauth2.setAccessTokenUrl(QUrl("https://auth.shinjiru.me/v2.php"));
-  oauth2.setClientIdentifier("16");
+  
+  #if QT_VERSION < QT_VERSION_CHECK(5, 12, 1)
+    oauth2.setAccessTokenUrl(QUrl("https://auth.shinjiru.me/v2.php"));
+    oauth2.setClientIdentifier("16");
+  #else
+    oauth2.setAccessTokenUrl(QUrl("https://auth.shinjiru.me/v2secondary.php"));
+    oauth2.setClientIdentifier("1633");
+  #endif
 
   connect(&oauth2, &QOAuth2AuthorizationCodeFlow::statusChanged, this, &AniList::statusChanged);
 
