@@ -20,6 +20,8 @@ class Application : public CommittableWidget {
 
  private:
   Ui::Application *ui;
+
+  void setStartOnBoot();
 };
 }  // namespace Views
 

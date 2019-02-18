@@ -3,6 +3,7 @@
 
 #include <QDir>
 #include <QDirIterator>
+#include <QStandardPaths>
 
 #include "../../../src/paths.h"
 
@@ -103,16 +104,75 @@ const QString boot_key = "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\Curre
 #endif
 
 void Application::commit() {
-  if (ui->startOnBoot->isChecked()) {
+  setStartOnBoot();
+}
+
 #ifdef Q_OS_WIN
+void Application::setStartOnBoot() {
+  if (ui->startOnBoot->isChecked()) {
     QSettings reg(boot_key, QSettings::NativeFormat);
     reg.setValue("Shinjiru", "\"" + qApp->applicationFilePath().replace("/", "\\") + "\"");
-#endif
   } else {
-#ifdef Q_OS_WIN
     QSettings reg(boot_key, QSettings::NativeFormat);
     reg.remove("Shinjiru");
-#endif
   }
 }
-}  // namespace Views
+#endif
+
+#ifdef Q_OS_MACOS
+void Application::setStartOnBoot() {
+  QString plist =
+    QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)
+                    + QDir::separator() + "Library" + QDir::separator() + "LaunchAgents"
+                    + QDir::separator() + "Info.plist");
+    QString appDir =
+      QDir::cleanPath(QCoreApplication::applicationDirPath() + QDir::separator() + "Shinjiru");
+    QSettings autoRun(plist, QSettings::NativeFormat);
+    autoRun.setValue("Label", "me.shinjiru.Shinjiru");
+    autoRun.setValue("Program", appDir);
+    autoRun.setValue("RunAtLoad", ui->startOnBoot->isChecked());
+}
+#endif
+
+#ifdef Q_OS_LINUX
+#include <QProcessEnvironment>
+
+QString getAutostartDirPath() {
+  QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+  QString config = env.value("XDG_CONFIG_HOME");
+
+  if (config.isEmpty()) {
+    config = QDir::homePath() + "/" + ".config";
+  }
+
+  return config + "/autostart";
+}
+
+QString getAutostartFilePath(QString dir)
+{
+    return dir + "/Shinjiru.desktop";
+}
+
+void Application::setStartOnBoot() {
+  QString dirPath = getAutostartDirPath();
+  QFile desktop(getAutostartFilePath(dirPath));
+
+  if (ui->startOnBoot->isChecked()) {
+    if (!QDir().mkpath(dirPath) || !desktop.open(QFile::WriteOnly | QFile::Truncate)) {
+      return;
+    }
+
+    desktop.write("[Desktop Entry]\n");
+    desktop.write("Type=Application\n");
+    desktop.write("Name=qTox\n");
+    desktop.write("Exec=");
+    desktop.write(QApplication::applicationFilePath().toUtf8());
+    desktop.write("\n");
+    desktop.close();
+  } else {
+    desktop.remove();
+  }
+}
+#endif
+
+}
