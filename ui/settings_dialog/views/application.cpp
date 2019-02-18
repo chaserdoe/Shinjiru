@@ -164,7 +164,7 @@ void Application::setStartOnBoot() {
 
     desktop.write("[Desktop Entry]\n");
     desktop.write("Type=Application\n");
-    desktop.write("Name=qTox\n");
+    desktop.write("Name=Shinjiru\n");
     desktop.write("Exec=");
     desktop.write(QApplication::applicationFilePath().toUtf8());
     desktop.write("\n");
