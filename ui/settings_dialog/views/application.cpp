@@ -5,6 +5,11 @@
 #include <QDirIterator>
 #include <QStandardPaths>
 
+
+#ifdef Q_OS_LINUX
+#include <QProcessEnvironment>
+#endif
+
 #include "../../../src/paths.h"
 
 #include "../../../src/settings.h"
@@ -135,8 +140,6 @@ void Application::setStartOnBoot() {
 #endif
 
 #ifdef Q_OS_LINUX
-#include <QProcessEnvironment>
-
 QString getAutostartDirPath() {
   QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
   QString config = env.value("XDG_CONFIG_HOME");
