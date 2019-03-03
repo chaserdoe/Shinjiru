@@ -140,6 +140,10 @@ void TrayIcon::updateMediaProgress(Media *media, int episodePlaying) {
   data["progress"] = episodePlaying;
   data["status"] = "CURRENT";
 
+  if (media->listStatus() == "REPEATING") {
+    data["status"] = "REPEATING";
+  }
+
   if (episodePlaying == media->episodes()) {
     data["status"] = "COMPLETED";
   }
