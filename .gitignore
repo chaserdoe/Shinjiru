@@ -31,3 +31,4 @@ target_wrapper.*
 # QtCreator CMake
 CMakeLists.txt.user*
 .DS_Store
+.vscode
