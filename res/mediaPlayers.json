@@ -43,6 +43,14 @@
     "method": "TITLE",
     "titleRegex": "(.+) - PotPlayer"
   },
+  "SMPlayer": {
+    "exeNames": [
+      "smplayer.exe",
+      "smplayer"
+    ],
+    "method": "TITLE",
+    "titleRegex": "(.*?) - SMPlayer"
+  },
   "Firefox": {
     "exeNames": [
       "firefox.exe",

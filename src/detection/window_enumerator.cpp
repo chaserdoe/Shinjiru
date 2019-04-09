@@ -142,8 +142,10 @@ void WindowEnumerator::processTitle(const std::string &title) {
 
   const auto &elements = m_anitomy.elements();
 
-  const auto &mediaTitle = elements.get(anitomy::kElementAnimeTitle);
+  auto mediaTitle = elements.get(anitomy::kElementAnimeTitle);
   const auto &mediaEpisode = elements.get(anitomy::kElementEpisodeNumber);
+
+  std::replace(std::begin(mediaTitle), std::end(mediaTitle), '_', ' ');
 
   auto &mediaList = MediaList::instance();
   auto &store = MediaStore::instance();
