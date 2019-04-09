@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Shinjiru
+GenericName=Anime tracker for Anilist
+Comment=Qt-based anime recognition and list managment tool for AniList
+Icon=Shinjiru
+Terminal=false
+Categories=Amusement;Network;Feed;Monitor;Applet;

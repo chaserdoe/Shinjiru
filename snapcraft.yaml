@@ -1,0 +1,80 @@
+name: shinjiru
+version: 3.4.0
+grade: stable
+summary: A desktop client for AniList
+description: Makes managing your AniList account simple via automatic list updates and episode downloads  
+
+confinement: strict
+base: core18
+
+apps:
+  shinjiru:
+    plugs: 
+      - x11
+      - home
+      - desktop
+      - desktop-legacy
+      - opengl
+      - network
+    command: desktop-launch $SNAP/bin/shinjiru
+    desktop: root/parts/shinjiru/build/share/applications/Shinjiru.desktop
+
+parts:
+  desktop-qt5:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - build-essential
+      - qtbase5-dev
+      - dpkg-dev
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+
+  install-qt:
+    plugin: nil
+    override-build: |
+      add-apt-repository ppa:beineri/opt-qt-5.12.0-xenial -y
+      apt update
+      apt upgrade -yy
+      apt-get install -y qt512base qt512declarative qt512networkauth-no-lgpl
+      echo "/opt/qt512/bin" > /usr/lib/x86_64-linux-gnu/qtchooser/default.conf
+      echo "/opt/qt512/lib" >> /usr/lib/x86_64-linux-gnu/qtchooser/default.conf
+    build-packages:
+      - software-properties-common
+    stage-packages:
+      - qt512base
+      - qt512declarative
+      - qt512networkauth-no-lgpl
+
+  shinjiru:
+    after: 
+      - install-qt
+      - desktop-qt5
+    source: .
+    plugin: qmake
+    options:
+      - CONFIG+=release
+    build-environment:
+     - QT_SELECT: default
+     - LD_LIBRARY_PATH: /opt/qt512/lib
+    build-packages:
+      - libxinerama-dev
+      - libxtst-dev
+      - build-essential
+    stage-packages:
+      - libxtst-dev
