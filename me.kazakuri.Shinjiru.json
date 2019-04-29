@@ -1,0 +1,22 @@
+{
+  "id": "me.kazakuri.Shinjiru",
+  "branch": "master",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "5.12",
+  "sdk": "org.kde.Sdk",
+  "command": "Shinjiru",
+  "rename-desktop-file": "Shinjiru.desktop",
+  "rename-icon": "Shinjiru",
+  "tags": [ "anime" ],
+  "finish-args": [
+    "--socket=x11",
+    "--share=network"
+  ],
+  "modules": [
+    {
+      "name": "Shinjiru",
+      "buildsystem": "qmake",
+      "sources": [ { "type": "git", "url": "git://github.com/ShinjiruApp/Shinjiru.git" } ]
+    }
+  ]
+}
