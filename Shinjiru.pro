@@ -173,10 +173,10 @@ linux {
   icon.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/icons/hicolor/scalable/apps/Shinjiru.svg
 
   app.path = $${PREFIX}/share/applications/
-  app.extra = cp -f $${PWD}/Shinjiru.desktop.in $${PWD}/me.kazakuri.Shinjiru.desktop; \
-              echo \"Exec=$${PREFIX}/bin/Shinjiru\" >> $${PWD}/me.kazakuri.Shinjiru.desktop; \
-              ${INSTALL_FILE} $${PWD}/me.kazakuri.Shinjiru.desktop $(INSTALL_ROOT)$${PREFIX}/share/applications/me.kazakuri.Shinjiru.desktop
-  app.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/applications/me.kazakuri.Shinjiru.desktop
+  app.extra = cp -f $${PWD}/Shinjiru.desktop.in $${PWD}/Shinjiru.desktop; \
+              echo \"Exec=$${PREFIX}/bin/Shinjiru\" >> $${PWD}/Shinjiru.desktop; \
+              ${INSTALL_FILE} $${PWD}/Shinjiru.desktop $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
+  app.uninstall = $(DEL_FILE) $(INSTALL_ROOT)$${PREFIX}/share/applications/Shinjiru.desktop
 
   license.path = $${PREFIX}/share/licenses/Shinjiru
   license.files = LICENSE
