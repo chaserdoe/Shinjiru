@@ -51,6 +51,13 @@
     "method": "TITLE",
     "titleRegex": "(.*?) - SMPlayer"
   },
+  "Baka MPlayer": {
+    "exeNames": [
+      "Baka MPlayer.exe"
+    ],
+    "method": "TITLE",
+    "titleRegex": "(.*?)"
+  },
   "Firefox": {
     "exeNames": [
       "firefox.exe",
