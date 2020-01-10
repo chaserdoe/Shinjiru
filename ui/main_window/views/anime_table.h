@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QSet>
 #include <QTableView>
+#include <QContextMenuEvent>
 
 #include "../../../src/models/media.h"
 #include "../../../src/models/media_list.h"
