@@ -11,5 +11,6 @@
         <file>queries/DeleteMediaListEntry.gql</file>
         <file>qml/AiringView.qml</file>
         <file>res/arrow-down.png</file>
+        <file>lang/shinjiru_de.qm</file>
     </qresource>
 </RCC>

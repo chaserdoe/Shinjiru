@@ -158,7 +158,8 @@ RESOURCES += \
   res.qrc
 
 TRANSLATIONS = \
-  lang/shinjiru_en.ts
+  lang/shinjiru_en.ts \
+  lang/shinjiru_de.ts
 
 linux {
   isEmpty(PREFIX) {

@@ -48,6 +48,11 @@
             <string notr="true">English</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>German/Deutsch</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

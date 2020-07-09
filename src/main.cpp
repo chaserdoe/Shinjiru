@@ -133,11 +133,24 @@ int main(int argc, char *argv[]) {
 
   // TODO: language
   QTranslator qtTranslator;
-  qtTranslator.load("qt_en", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-  a.installTranslator(&qtTranslator);
-
   QTranslator shinjiruTranslator;
-  shinjiruTranslator.load(":/lang/shinjiru_en");
+
+  auto language = s.get(Setting::Language);
+
+  if (language == "English") {
+    qtTranslator.load("qt_en", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    shinjiruTranslator.load(":/lang/shinjiru_en");
+  }
+  else if (language == "German/Deutsch") {
+    qtTranslator.load("qt_de", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    shinjiruTranslator.load(":/lang/shinjiru_de");
+  }
+  else {
+    qDebug() << "Failed to load language " << language << endl;
+    assert(false);
+  }
+
+  a.installTranslator(&qtTranslator);
   a.installTranslator(&shinjiruTranslator);
 
   MainWindow w;
